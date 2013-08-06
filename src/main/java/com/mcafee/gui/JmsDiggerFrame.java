@@ -41,6 +41,7 @@ class JmsDiggerFrame extends JFrame {
 		JmsDiggerFrame jmsDiggerFrame = new JmsDiggerFrame("JMSDigger 0.1");
 		JPanel jmsDiggerParentPanel = new JPanel(new GridLayout(1, 1));
 		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		JmsConfigTab jmsConfigTab = new JmsConfigTab();
 		JmsAuthenticationTab authenticationTab = new JmsAuthenticationTab(jmsConfigTab);
 		JmsDumpDestinationTab dumpTab = new JmsDumpDestinationTab(jmsConfigTab);
