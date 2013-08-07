@@ -2,7 +2,11 @@ package com.mcafee.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -29,7 +33,7 @@ class JmsDiggerFrame extends JFrame {
 		
 	}
 	
-	public JmsDiggerFrame(String name) {
+	public JmsDiggerFrame(String name) throws IOException {
 		super(name);
 	}
 	
@@ -37,8 +41,17 @@ class JmsDiggerFrame extends JFrame {
 		return "string";
 	}
 	
-	private static void createAndShowGUI() throws JmsDiggerException {		
-		JmsDiggerFrame jmsDiggerFrame = new JmsDiggerFrame("JMSDigger 0.1");
+	private static void createAndShowGUI() throws JmsDiggerException, IOException {		
+		JmsDiggerFrame jmsDiggerFrame = new JmsDiggerFrame("JMSDigger 0.1.0.3");
+
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream("fs_icon_32.png");
+		Image fsIcon = ImageIO.read(inputStream);
+		jmsDiggerFrame.setIconImage(fsIcon);
+		
+		jmsDiggerFrame.setSize(WIDTH, HEIGHT);
+		jmsDiggerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		JPanel jmsDiggerParentPanel = new JPanel(new GridLayout(1, 1));
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -48,9 +61,6 @@ class JmsDiggerFrame extends JFrame {
 		JmsDurableSubscriberTab durableSubscriberTab = new JmsDurableSubscriberTab(jmsConfigTab);
 		AmqOpsTab amqOpsTab = new AmqOpsTab(jmsConfigTab);
 		JMSDiggerAboutTab aboutTab = new JMSDiggerAboutTab();
-		
-		jmsDiggerFrame.setSize(WIDTH, HEIGHT);
-		jmsDiggerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// All the tabs will be added here
 		tabbedPane.add(jmsConfigTab.getTitle(), jmsConfigTab);
@@ -78,7 +88,10 @@ class JmsDiggerFrame extends JFrame {
 					String errStr = "An error occured while creating JMSDigger GUI";
 					LOG.info(errStr, e);
 					JmsGuiCommon.showErrorAndLogMessage(errStr);
-
+				} catch (IOException e) {
+					String errStr = "An error occured while creating JMSDigger GUI";
+					LOG.info(errStr, e);
+					JmsGuiCommon.showErrorAndLogMessage(errStr);
 				}
             }
         });

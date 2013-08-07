@@ -379,7 +379,7 @@ public class JmsDurableSubscriberTab extends JPanel {
 		protected ProgressInfo doInBackground() throws Exception {
 			
 			try {
-				manipulator = new JmsDurableSubscriberManipulator(initialContext, topicName, jmsConfig.getConnFactName());
+				manipulator = new JmsDurableSubscriberManipulator(initialContext, topicName, jmsConfig.getConnFactName(), jmsConfig.getLoginInfo());
 				manipulator.init(clientId);
 			} catch (JmsDiggerException ex) {
 				LOG.info("DurableSubscriberManipulator initialization failed", ex);
@@ -388,29 +388,32 @@ public class JmsDurableSubscriberTab extends JPanel {
 			}
 			
 			//publish(new ProgressInfo("\n==================================================\n[+] Creating durable subscribers with clientID \"" + clientId+"\"" , true, 0));
-			for(int i = 0; i < durableSubscriberNames.size() ; i++) {
-				try {
-					if(!erase) {
-						manipulator.createDurableSubscriber(durableSubscriberNames.get(i), messageSelector);
-						publish(new ProgressInfo("\n[+] Created durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, i*100/count));
-					} else {
-						manipulator.eraseDurableSubscriber(durableSubscriberNames.get(0));
-						publish(new ProgressInfo("\n[+] Erased durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, 100));
-					}
-				} catch(JmsDiggerException ex) {
-					if(!isErase())
-						publish(new ProgressInfo("\n[-] Could not create durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, i*100/count));
-					else
-						publish(new ProgressInfo("\n[-] Could not erase durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, 100));
-				} finally {
-					/**
-					 * Very important to close the connections as ActiveMQ allows only one active connection from one clientID.
-					 * If the connection is not closed, ActiveMQ throws an exception of the following type
-					 * Caused by: javax.jms.InvalidClientIDException: Broker: localhost - Client: <clientID> already connected from tcp://ipadderss:port  
-					 */			
-					manipulator.close(); 
+			try {
+				for(int i = 0; i < durableSubscriberNames.size() ; i++) {
+					try {
+						if(!isErase()) {
+							manipulator.createDurableSubscriber(durableSubscriberNames.get(i), messageSelector);
+							publish(new ProgressInfo("\n[+] Created durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, i*100/count));
+						} else {
+							manipulator.eraseDurableSubscriber(durableSubscriberNames.get(0));
+							publish(new ProgressInfo("\n[+] Erased durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, 100));
+						}
+					} catch(JmsDiggerException ex) {
+						if(!isErase())
+							publish(new ProgressInfo("\n[-] Could not create durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, i*100/count));
+						else
+							publish(new ProgressInfo("\n[-] Could not erase durable subscriber \"" + durableSubscriberNames.get(i) +"\"" ,true, 100));
+					} 
 				}
+			} finally {
+				/**
+				 * Very important to close the connections as ActiveMQ allows only one active connection from one clientID.
+				 * If the connection is not closed, ActiveMQ throws an exception of the following type
+				 * Caused by: javax.jms.InvalidClientIDException: Broker: localhost - Client: <clientID> already connected from tcp://ipadderss:port  
+				 */			
+				manipulator.close(); 
 			}
+		
 			
 			return new ProgressInfo("Completed", true, 100);
 		}
