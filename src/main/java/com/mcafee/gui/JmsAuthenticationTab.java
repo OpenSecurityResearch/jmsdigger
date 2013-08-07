@@ -351,7 +351,7 @@ public class JmsAuthenticationTab extends JPanel {
 			ArrayList<String> passwordArrayList = new ArrayList<String>();
 
 			if(event.getSource() == goSingleUser) {
-				usernameArrayList.add(singlePassInput.getText());
+				usernameArrayList.add(singleUserInput.getText());
 				passwordArrayList.add(singlePassInput.getText());
 			} else {
 				if(event.getSource() == goBruteforceButton) {

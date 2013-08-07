@@ -4,7 +4,7 @@
 
   <groupId>com.mcafee</groupId>
   <artifactId>jmsdigger</artifactId>
-  <version>0.1.0.3-SNAPSHOT</version>
+  <version>0.1.0.4-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>jmsdigger</name>
@@ -49,5 +49,5 @@
   <scm>
   	<developerConnection>Gursev Singh Kalra</developerConnection>
   </scm>
-  <description>JMSDigger is JMS API basedEnterprise Messaging Application assessment tool.</description>
+  <description>JMSDigger is JMS API based Enterprise Messaging Application assessment tool.</description>
 </project>

@@ -90,21 +90,15 @@ public class JmsConfigTab extends JPanel {
 
 		JLabel providerUrlLabel = new JLabel("Provider URL");
 		providerUrlInput = new JTextField();
-		providerUrlInput.setText("tcp://192.168.127.130:61616");
 		providerUrlLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 		JLabel usernameLabel = new JLabel("Username");
 		usernameInput = new JTextField();
-		usernameInput.setText("system");
 		usernameLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 		JLabel passwordLabel = new JLabel("Password");
 		passwordInput = new JPasswordField();
-		passwordInput.setText("manager");
-		//passwordInput = new JTextField();
-		passwordLabel.setHorizontalAlignment(JLabel.RIGHT);
-		//JPasswordField confirmPasswordInput = new JPasswordField();
-		
+		passwordLabel.setHorizontalAlignment(JLabel.RIGHT);		
 		
 		JPanel testConfigPanel = new JPanel();
 		testConfigButton = new JButton("Test Configuration");

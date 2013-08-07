@@ -58,7 +58,6 @@ public class AmqOpsTab extends JPanel {
 	private JmsConfig jmsConfig;
 	private InitialContext initialContext;
 	private JmsLoginInfo loginInfo;
-	private JmsAuthentication jmsAuthn;
 	private boolean boolResult;
 	
 	private JTextField destNameInput;
@@ -94,9 +93,8 @@ public class AmqOpsTab extends JPanel {
 	public AmqOpsTab(JmsConfigTab jmsConfigTab) throws JmsDiggerException {
 		this.jmsConfigTab = jmsConfigTab;
 		this.title = "ActiveMQ Ops";
-		jmsConfig = this.jmsConfigTab.getJmsConfig();
-		initialContext = jmsConfig.buildInitialContext();
-		jmsAuthn = new JmsAuthentication(initialContext, jmsConfig.getConnFactName());
+//		jmsConfig = this.jmsConfigTab.getJmsConfig();
+//		initialContext = jmsConfig.buildInitialContext();
 		KeyEncPasswdListManipulator keyEncPasswdListManipulator = new KeyEncPasswdListManipulator();
 
 		
@@ -310,7 +308,7 @@ public class AmqOpsTab extends JPanel {
 		 * Build the PASSWORD, Jlist and corresponding load and clear buttons
 		 */
 		JPanel decKeyPanel = new JPanel(new GridBagLayout());
-		JLabel decKeyLabel = new JLabel("Decryption String");
+		JLabel decKeyLabel = new JLabel("Decryption Keys");
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		decKeyPanel.add(decKeyLabel, gbc);
@@ -530,6 +528,8 @@ public class AmqOpsTab extends JPanel {
 				if(pInfo.isSuccessful()) {
 					//JOptionPane.showMessageDialog(null, "Destination " +destinationName + " created!", "Success", JOptionPane.INFORMATION_MESSAGE);
 					outputArea.setText(pInfo.getDescription());
+					if(JmsHelper.isStringNullOrEmpty(pInfo.getDescription())) 
+						outputArea.setText("[-] No information was available");
 				} else {
 					JOptionPane.showMessageDialog(null, destinationName + " could not be queried!", "Failure", JOptionPane.ERROR_MESSAGE);
 					outputArea.setText(pInfo.getDescription());
