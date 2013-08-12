@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Random;
 
 import javax.jms.BytesMessage;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
-
 import javax.jms.Connection;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
@@ -30,8 +30,17 @@ import org.apache.activemq.util.IdGenerator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.apache.commons.lang.RandomStringUtils;
 
-
+class RandomPerson implements Serializable {
+	private static Random random = new Random(); 
+	private String name;
+	private int age;
+	public RandomPerson() {
+		name = RandomStringUtils.random(random.nextInt(15));
+		age = random.nextInt(20);
+	}
+}
 
 /**
  * 
@@ -122,7 +131,7 @@ public class JmsDumpDestinationTest {
 		mp.send(tmsg);
 		
 		ObjectMessage omsg = (ObjectMessage) session.createObjectMessage(true);
-		omsg.setObject(new Student());
+		omsg.setObject(new RandomPerson());
 		mp.send(omsg);
 		
 		
@@ -277,7 +286,7 @@ public class JmsDumpDestinationTest {
 		Topic topic = (Topic) ctx.lookup(topic4DurableSubscriber);
 		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		MessageProducer mp = session.createProducer(topic);
-		for(int i = 0; i < 100; i ++) {
+		for(int i = 0; i < 10; i ++) {
 		//mp.setTimeToLive(0);
 			sendMessages(session, mp);
 		}
