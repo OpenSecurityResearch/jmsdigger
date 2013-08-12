@@ -159,12 +159,12 @@ public class JmsDumpDestination implements MessageListener {
 	 * 
 	 *<br/>
 	 * -------------------------------------------------------------<br/>
-	 * clientId | durableSubscriberName | LookFor					|<br/>
+	 * clientId   | durableSubscriberName | LookFor					|<br/>
 	 * -------------------------------------------------------------<br/>
-	 * null		|	null				|	Topic					|<br/>
-	 * null		|	value				|	Throw Error				|<br/>
-	 * value	|	null				|	Topic					|<br/>
-	 * value	|	value				|	Dump Durable Subscriber	|<br/>
+	 * null/empty |	null/empty			|	Topic					|<br/>
+	 * null/empty |	value				|	Throw Error				|<br/>
+	 * value	  |	null/empty			|	Topic					|<br/>
+	 * value	  |	value				|	Dump Durable Subscriber	|<br/>
 	 * --------------------------------------------------------------<br/>
 	 */
 	
@@ -182,19 +182,21 @@ public class JmsDumpDestination implements MessageListener {
 			}
 			else {
 				if(dst instanceof Topic) {
-					if(durableSubscriberName == null) {
+					if(JmsHelper.isStringNullOrEmpty(durableSubscriberName)) {
 						dstType = JmsDestination.TOPIC;
-						filenameIdentifier = "topic-" + dstName; 
-					} else if(clientId != null) {
-						dstType = JmsDestination.DURABLESUBSCRIBER;
-						filenameIdentifier = "durableSubscriber-" + dstName; 						
+						filenameIdentifier = "topic-" + dstName;
 					} else {
-						LOG.info("clientId cannot be null when durableSubscriberName has a value");
-						throw new IllegalArgumentException("clientId cannot be null when durableSubscriberName is not null");
+						if(JmsHelper.isStringNullOrEmpty(clientId)) {
+							LOG.info("clientId cannot be null when durableSubscriberName has a value");
+							throw new IllegalArgumentException("clientId cannot be null when durableSubscriberName has a value");							
+						} else {
+							dstType = JmsDestination.DURABLESUBSCRIBER;
+							filenameIdentifier = "durableSubscriber-" + dstName;
+						}
 					}
-				}
-				else
+				} else {
 					throw new IllegalArgumentException(dstName + " is neither a Queue nor a Topic");
+				}
 			}
 			
 			connFact = (ConnectionFactory) ctx.lookup(this.connFactName);

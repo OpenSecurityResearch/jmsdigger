@@ -293,7 +293,6 @@ public class JmsDumpDestinationTest {
 		session.close();
 		connection.close();
 		destDumper = null;
-
 	}
 	
 	@Test 
