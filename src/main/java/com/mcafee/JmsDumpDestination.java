@@ -178,16 +178,16 @@ public class JmsDumpDestination implements MessageListener {
 			
 			if(dst instanceof Queue) {
 				dstType = JmsDestination.QUEUE;
-				filenameIdentifier = "queueDump-" + dstName;
+				filenameIdentifier = "queue-" + dstName;
 			}
 			else {
 				if(dst instanceof Topic) {
 					if(durableSubscriberName == null) {
 						dstType = JmsDestination.TOPIC;
-						filenameIdentifier = "topicDump-" + dstName; 
+						filenameIdentifier = "topic-" + dstName; 
 					} else if(clientId != null) {
 						dstType = JmsDestination.DURABLESUBSCRIBER;
-						filenameIdentifier = "topicDurableSubscriberDump-" + dstName; 						
+						filenameIdentifier = "durableSubscriber-" + dstName; 						
 					} else {
 						LOG.info("clientId cannot be null when durableSubscriberName has a value");
 						throw new IllegalArgumentException("clientId cannot be null when durableSubscriberName is not null");

@@ -42,7 +42,7 @@ class JmsDiggerFrame extends JFrame {
 	}
 	
 	private static void createAndShowGUI() throws JmsDiggerException, IOException {		
-		JmsDiggerFrame jmsDiggerFrame = new JmsDiggerFrame("JMSDigger 0.1.0.4");
+		JmsDiggerFrame jmsDiggerFrame = new JmsDiggerFrame("JMSDigger 0.1.1.0");
 
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream inputStream = classLoader.getResourceAsStream("fs_icon_32.png");

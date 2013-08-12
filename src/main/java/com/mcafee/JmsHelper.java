@@ -164,7 +164,7 @@ public class JmsHelper {
 					sb.append("\t" + name + " : ");
 					value = msg.getObject(name);
 					if (value instanceof byte[])
-						sb.append(byteArrayToHexString((byte[]) value) + "\n");
+						sb.append(JmsHelper.byteArrayToHexString((byte[]) value) + "\n");
 					else
 						sb.append(value + "\n");
 				}
