@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 
 import com.mcafee.JmsAuthentication;
 import com.mcafee.JmsDiggerException;
+import com.mcafee.JmsHelper;
 import com.mcafee.JmsLoginInfo;
 
 /**
@@ -454,7 +455,7 @@ public class JmsAuthenticationTab extends JPanel {
 					boolResult = jmsAuthn.isLoginInfoValid(loginInfo);
 					if(boolResult == false) {
 						testResults.append("Failed\n");
-						testResults.append(jmsAuthn.getException());
+						testResults.append(JmsHelper.exceptionStacktraceToString(jmsAuthn.getException()));
 					} else {
 						testResults.append("Success\n");
 						workingCreds.append(loginInfo + "\n");

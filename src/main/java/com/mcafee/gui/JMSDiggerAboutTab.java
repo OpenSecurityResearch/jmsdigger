@@ -25,7 +25,7 @@ public class JMSDiggerAboutTab extends JPanel{
 		JPanel aboutPanel = new JPanel(new GridBagLayout());
 		Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		aboutPanel.setBorder(border);
-		JTextArea aboutTextArea = new JTextArea("\nJMSDigger is an Enterprise Messaging Application Assessment tool.\n\nAuthor: Gursev Singh Kalra (gursev.kalra@foundstone.com)\nMcAfee, Inc - Foundstone Professional Services\n");
+		JTextArea aboutTextArea = new JTextArea("\n JMSDigger is an Enterprise Messaging Application Assessment tool. \n\n Author: Gursev Singh Kalra (gursev.kalra@foundstone.com)\n McAfee, Inc - Foundstone Professional Services. \n\n Source code: \n https://github.com/OpenSecurityResearch/jmsdigger\n ");
 		aboutTextArea.setEditable(false);
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
