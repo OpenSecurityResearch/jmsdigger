@@ -1,7 +1,7 @@
 JMSDigger is an Enterprise Messaging Application assessment tool.
 The current release primarily focuses on ActiveMQ.
 
-Copyright (c) 2013, Gursev Singh Kalra - gursev.kalra@foundstone.com  
+Copyright (c) 2014, Gursev Singh Kalra - gursev.kalra@foundstone.com  
 (McAfee, Inc - Foundstone Professional Services)
 
 Licensing
