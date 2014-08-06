@@ -71,7 +71,7 @@ public class JmsDumpDestinationTest {
 	
 	private InitialContext getInitialContext() throws JmsDiggerException
 	{
-		JmsInitialContextFactory contextFactory = new JmsInitialContextFactory("org.apache.activemq.jndi.ActiveMQInitialContextFactory", "tcp://10.230.57.217:61616");
+		JmsInitialContextFactory contextFactory = new JmsInitialContextFactory("org.apache.activemq.jndi.ActiveMQInitialContextFactory", "tcp://127.0.0.1:61616");
 		contextFactory.addConnectionFactory(connFactName);
 		contextFactory.addQueue(dumpQueue11Msgs, "jms."+dumpQueue11Msgs);
 		contextFactory.addQueue(dumpQueue00Msgs, "jms."+dumpQueue00Msgs);
